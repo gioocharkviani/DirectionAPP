@@ -54,7 +54,7 @@ function App() {
       console.log('Loading error');
       return;
     }
-  }, [isLoaded]);
+  }, []);
 
 
   useEffect(() => {
