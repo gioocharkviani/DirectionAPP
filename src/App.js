@@ -13,6 +13,14 @@ import Toggle from './components/Toggle';
 import TravelModeSwith from './components/TravelModeSwith';
 
 function App() {
+
+  
+  const {isLoaded , loadError } = useJsApiLoader({
+    googleMapsApiKey : process.env.REACT_APP_GOOGLE_API_KEY,
+    libraries: ['places']
+  })
+
+
   const centercordinates = {lat:41.716667 , lng: 44.783333 }
 
   const directionfrom = useRef()
@@ -37,12 +45,6 @@ function App() {
   const [duration , setduration] = useState('')
   
   const [travelmode , settravelmode] = useState('DRIVING')
-
-
-  const {isLoaded , loadError } = useJsApiLoader({
-    googleMapsApiKey : process.env.REACT_APP_GOOGLE_API_KEY,
-    libraries: ['places']
-  })
 
 
   const [locationClicked, setLocationClicked] = useState(false);
