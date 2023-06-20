@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState , useCallback } from 'react';
 import './App.css';
 
 import CarSvg  from './assets/car-front.svg';
@@ -71,49 +71,51 @@ function App() {
 
 
 
-  useEffect(() => {
-    if (travelmode && directionfrom.current.value && directionto.current.value) {
-      searchhandler();
-    }
-  }, [travelmode]);
 
 
   useEffect(() => {
     if (isToggled) {
-      setdistance(Math.round(distance/1.6));
+      setdistance(Math.round(result.routes[0].legs[0].distance.value / 1000)/1.6);
       setMile('mi');
     } else if (result && result.routes) {
       setdistance(Math.round(result.routes[0].legs[0].distance.value / 1000));
       setMile('km');
     }
-  }, [isToggled, result]);
+  }, [isToggled, result , distance]);
 
-  const searchhandler =  async () => {
-    setIsToggled(false)
-    if (directionfrom.current.value === '' && directionto.current.value ==='') {return}
-        // eslint-disable-next-line no-undef
-        try {
-        const directionsService = new window.google.maps.DirectionsService();
-        const results = await directionsService.route({
-          origin: directionfrom.current.value,
-          destination: directionto.current.value,
-          // eslint-disable-next-line no-undef
-          travelMode: travelmode,
-        })
-    
 
-       if (results && results.routes && results.routes[0].legs[0].distance.value) {
-          setresult(results);
-          setdistance(Math.round(results.routes[0].legs[0].distance.value / 1000));
-          setduration(results.routes[0].legs[0].duration.text);
-          setShowDirections(true)
-        } 
-      }catch (error) {
-        seterrormessage('Error:', error)
-        seterror(true);
-      }
+  const searchhandler = useCallback(async () => {
+    setIsToggled(false);
+    if (directionfrom.current.value === '' && directionto.current.value === '') {
+      return;
+    }
   
-  }
+    try {
+      const directionsService = new window.google.maps.DirectionsService();
+      const results = await directionsService.route({
+        origin: directionfrom.current.value,
+        destination: directionto.current.value,
+        travelMode: travelmode,
+      });
+  
+      if (results && results.routes && results.routes[0].legs[0].distance.value) {
+        setresult(results);
+        setdistance(Math.round(results.routes[0].legs[0].distance.value / 1000));
+        setduration(results.routes[0].legs[0].duration.text);
+        setShowDirections(true);
+      }
+    } catch (error) {
+      seterrormessage('Error:', error);
+      seterror(true);
+    }
+  }, [directionfrom, directionto, travelmode]);
+  
+  
+  useEffect(() => {
+    if (travelmode && directionfrom.current.value && directionto.current.value) {
+      searchhandler();
+    }
+  }, [searchhandler, travelmode]);
 
 
   const locationhandler = () => {
