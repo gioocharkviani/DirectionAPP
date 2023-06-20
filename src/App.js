@@ -20,6 +20,18 @@ function App() {
     libraries: ['places']
   })
 
+  const [map, setMap] = useState(null);
+
+  useEffect(() => {
+    if (loadError) {
+      console.error('Failed to load Google Maps API');
+    }
+  }, [loadError]);
+
+  const onMapLoad = useCallback((mapInstance) => {
+    setMap(mapInstance);
+  }, []);
+
 
   const centercordinates = {lat:41.716667 , lng: 44.783333 }
 
@@ -38,7 +50,6 @@ function App() {
   const [error , seterror] = useState(false)
   const [errormessage , seterrormessage] = useState('')
 
-  const [map , setmap] = useState(null)
   const [result , setresult] = useState('')
   const [distance , setdistance] = useState('')
   const [mile , setMile] = useState('km')
@@ -54,7 +65,7 @@ function App() {
       console.log('Loading error');
       return;
     }
-  }, []);
+  }, [isLoaded]);
 
 
   useEffect(() => {
@@ -185,7 +196,7 @@ function App() {
           mapTypeControl:false,
           streetViewControl:false
            }}
-        onLoad={map => setmap(map)}   
+           onLoad={onMapLoad}   
            >
             {locationClicked && <Marker position={center}/>}
             {result && <DirectionsRenderer  directions={result}/>}

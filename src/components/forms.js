@@ -2,7 +2,7 @@ import React from 'react'
 import search from '../assets/search.svg'
 import location from '../assets/location.svg'
 import clear from '../assets/x-circle.svg'
-import {Autocomplete} from '@react-google-maps/api'
+
 
 const Forms = (props) => {
 
@@ -13,16 +13,13 @@ const Forms = (props) => {
 
 <div className='input'>
   <label for='from'>from</label>
-  <Autocomplete>
   <input type='text' id='from' placeholder='Location from'  ref={props.directionfrom}/>
-  </Autocomplete>
 </div>
 
 <div className='input'>
   <label for='to'>to</label>
-  <Autocomplete>
+
   <input type='text' id='to' placeholder='Location to'  ref={props.directionto}/>
-  </Autocomplete>
 </div>
 
 <div className='buttons'>
