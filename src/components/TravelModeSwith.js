@@ -5,7 +5,7 @@ const TravelModeSwith = (props) => {
     <>
     <label className='travelmode-switch'>
         <input type="checkbox" checked={props.ischacked} onChange={props.onischacked}/>
-        <span className="travelmode" ><img src={props.tricon} /></span>
+        <span className="travelmode" ><img src={props.tricon} alt='trip'/></span>
     </label>
     </>
   )
