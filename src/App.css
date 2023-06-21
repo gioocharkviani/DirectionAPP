@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Work Sans', sans-serif;
+  outline: none;
+  text-decoration: none;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Hind&family=Work+Sans&display=swap');
@@ -358,4 +360,29 @@ display: flex;
 justify-content: center;
 font-size: 16px;
 color: red;
+}
+
+.Build-info {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 101;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding:20px ;
+  border-radius: 5px;
+  gap: 10px;
+  align-items: center;
+}
+
+.Build-info span a {
+  color: blue;
+}
+
+@media only screen and (max-width: 1000px) {
+  .Build-info {
+    display: none;
+  }
 }

@@ -3,7 +3,6 @@ import search from '../assets/search.svg'
 import location from '../assets/location.svg'
 import clear from '../assets/x-circle.svg'
 
-
 const Forms = (props) => {
 
 
@@ -18,8 +17,8 @@ const Forms = (props) => {
 
 <div className='input'>
   <label for='to'>to</label>
-
   <input type='text' id='to' placeholder='Location to'  ref={props.directionto}/>
+
 </div>
 
 <div className='buttons'>

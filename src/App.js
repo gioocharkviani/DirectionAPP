@@ -49,6 +49,7 @@ function App() {
   const [arrow , setarrow] = useState(true);
   const [error , seterror] = useState(false)
   const [errormessage , seterrormessage] = useState('')
+  console.log(errormessage)
 
   const [result , setresult] = useState('')
   const [distance , setdistance] = useState('')
@@ -118,7 +119,7 @@ function App() {
         setShowDirections(true);
       }
     } catch (error) {
-      seterrormessage('Error:', error);
+      seterrormessage(error.message);
       seterror(true);
     }
   }, [directionfrom, directionto, travelmode]);
@@ -174,6 +175,7 @@ function App() {
     directionfrom.current.value = '';
     directionto.current.value = '';
     setMile('km');
+    onMapLoad();
   }
 
 
@@ -198,8 +200,8 @@ function App() {
            }}
            onLoad={onMapLoad}   
            >
-            {locationClicked && <Marker position={center}/>}
-            {result && <DirectionsRenderer  directions={result}/>}
+            {locationClicked  && <Marker position={center}/>}
+            {showDirections  && <DirectionsRenderer  directions={result}/>}
         </GoogleMap>
       )}
       </div>
@@ -266,7 +268,15 @@ function App() {
 
       </div>
 
-      {error && <Error closeerror={()=>{seterror(false)}} errormessage={errormessage}/>}
+      {error && <Error closeerror={()=>{seterror(false)}} errormessage={errormessage ? errormessage : 'Please inert corect location'}/>}
+
+      <div className='Build-info'>
+        <span>author : Giorgi Charkviaini</span>
+        <span>FrameWork : React.js</span>
+        <span>Services : Google map Api </span>
+        <span><a target='blank' href="https://www.linkedin.com/in/giorgi-charkviani-23273a258/">Liknedin</a></span>
+      </div>
+
     </div>
   );
 }
