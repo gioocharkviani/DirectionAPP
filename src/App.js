@@ -101,7 +101,7 @@ function App() {
   const searchhandler = useCallback(async () => {
     setIsToggled(false);
     if (directionfrom.current.value === '' && directionto.current.value === '') {
-      return;
+      seterrormessage('Please insert your locations')
     }
   
     try {
